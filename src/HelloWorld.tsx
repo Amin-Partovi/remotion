@@ -9,11 +9,13 @@ import {
 import {Logo} from './HelloWorld/Logo';
 import {Subtitle} from './HelloWorld/Subtitle';
 import {Title} from './HelloWorld/Title';
+import {Audio} from 'remotion';
+import audio from '../audio/audio.wav';
 
 export const HelloWorld: React.FC<{
-	titleText: string;
+	startText: string;
 	titleColor: string;
-}> = ({titleText, titleColor}) => {
+}> = ({startText, titleColor}) => {
 	const frame = useCurrentFrame();
 	const {durationInFrames, fps} = useVideoConfig();
 
@@ -47,13 +49,14 @@ export const HelloWorld: React.FC<{
 	// A <AbsoluteFill> is just a absolutely positioned <div>!
 	return (
 		<AbsoluteFill style={{backgroundColor: 'white'}}>
+			<Audio src={audio} />
 			<AbsoluteFill style={{opacity}}>
 				<AbsoluteFill style={{transform: `translateY(${logoTranslation}px)`}}>
 					<Logo />
 				</AbsoluteFill>
 				{/* Sequences can shift the time for its children! */}
 				<Sequence from={35}>
-					<Title titleText={titleText} titleColor={titleColor} />
+					<Title titleText={startText} titleColor={titleColor} />
 				</Sequence>
 				{/* The subtitle will only enter on the 75th frame. */}
 				<Sequence from={75}>
