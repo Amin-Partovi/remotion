@@ -5,12 +5,14 @@ import {
 	Sequence,
 	useCurrentFrame,
 	useVideoConfig,
+	Video,
 } from 'remotion';
 import {Logo} from './HelloWorld/Logo';
 import {Subtitle} from './HelloWorld/Subtitle';
 import {Title} from './HelloWorld/Title';
 import {Audio} from 'remotion';
 import audio from '../audio/audio.wav';
+import video from '../video/1.mp4';
 
 export const HelloWorld: React.FC<{
 	startText: string;
@@ -50,6 +52,7 @@ export const HelloWorld: React.FC<{
 	return (
 		<AbsoluteFill style={{backgroundColor: 'white'}}>
 			<Audio src={audio} />
+			<Video src={video} />
 			<AbsoluteFill style={{opacity}}>
 				<AbsoluteFill style={{transform: `translateY(${logoTranslation}px)`}}>
 					<Logo />
