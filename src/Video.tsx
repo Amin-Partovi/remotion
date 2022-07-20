@@ -1,9 +1,16 @@
-import {Composition} from 'remotion';
-import {HelloWorld} from './HelloWorld';
-import {config} from '../config.ts';
-import MyVideo from './MyVideo';
+import {Composition, continueRender, delayRender} from 'remotion';
 
-// Each <Composition> is an entry in the sidebar!
+import MyVideo from './MyVideo';
+import {font} from './styles/font';
+
+const waitForFont = delayRender();
+font
+	.load()
+	.then(() => {
+		document.fonts.add(font);
+		continueRender(waitForFont);
+	})
+	.catch((err) => console.log('Error loading font', err));
 
 export const RemotionVideo: React.FC = () => {
 	const videoDurartion = 30;
@@ -12,19 +19,12 @@ export const RemotionVideo: React.FC = () => {
 	return (
 		<>
 			<Composition
-				// You can take the "id" to render a video:
-				// npx remotion render src/index.tsx <id> out/video.mp4
 				id="MyVideo"
 				component={MyVideo}
 				durationInFrames={videoDurartion * fps}
 				fps={fps}
 				width={1920}
 				height={1080}
-				// You can override these props for each render:
-				// https://www.remotion.dev/docs/parametrized-rendering
-				defaultProps={{
-					startText: config.text.start_text[0],
-				}}
 			/>
 		</>
 	);

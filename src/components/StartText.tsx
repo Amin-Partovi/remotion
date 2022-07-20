@@ -1,37 +1,71 @@
-import {spring, useCurrentFrame, useVideoConfig} from 'remotion';
+import {useEffect} from 'react';
+import {spring, useCurrentFrame, useVideoConfig, interpolate} from 'remotion';
+
 import {config} from '../../config.ts';
+import {colors} from '../styles/colors';
 
 const startTextStyle: React.CSSProperties = {
 	display: 'block',
-	marginTop: '20px',
-	fontSize: '50px',
+	fontSize: '80px',
+	margin: '10px',
+	color: colors.primaryColor4,
 };
 
-const StartText: React.FC = () => {
-	const videoConfig = useVideoConfig();
+const backgroundStyle: React.CSSProperties = {
+	position: 'absolute',
+	width: '1%',
+	height: '1%',
+	backgroundColor: colors.primaryColor1,
+};
+
+const gap = 45; // gap between each word
+
+interface Props {
+	getDuration: (duration: number) => void;
+}
+
+const StartText: React.FC<Props> = ({getDuration}) => {
+	const {fps} = useVideoConfig();
 	const frame = useCurrentFrame();
 	const startText = config.text.start_text[0];
 	const wordArray = startText.split(' ');
+
+	const startTextDuration = wordArray.length * gap;
+
+	const opacity = frame > startTextDuration ? 0 : 1;
+	const backgroundScale =
+		frame < startTextDuration - 2 * gap
+			? 0
+			: ((frame - startTextDuration + 2 * gap) * 100) / gap;
+
+	const backgroundOpacity = interpolate(
+		frame,
+		[startTextDuration, startTextDuration + gap],
+		[1, 0]
+	);
+
+	useEffect(() => {
+		getDuration(startTextDuration);
+	}, []);
 
 	return (
 		<>
 			<div
 				style={{
-					transform: `scale(${frame})`,
-					position: 'absolute',
-					width: '5px',
-					height: '5px',
-					backgroundColor: 'red',
+					...backgroundStyle,
+					transform: `scale(${backgroundScale})`,
+					opacity: backgroundOpacity,
 				}}
 			></div>
 			{wordArray.map((word: string, i: number) => {
-				const delay = i * 45;
+				const delay = i * gap;
 
 				const scale = spring({
-					fps: videoConfig.fps,
+					fps: fps,
 					frame: frame - delay,
 					config: {
-						damping: 50,
+						damping: 100,
+						stiffness: 10,
 					},
 				});
 
@@ -40,8 +74,8 @@ const StartText: React.FC = () => {
 						key={word}
 						style={{
 							...startTextStyle,
-							color: 'white',
 							transform: `scale(${scale})`,
+							opacity: opacity,
 						}}
 					>
 						{word}
