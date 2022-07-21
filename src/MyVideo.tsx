@@ -11,7 +11,7 @@ import {
 import video from '../public/video/1.mp4';
 import video2 from '../public/video/2.mp4';
 import video3 from '../public/video/5.mp4';
-import audio from '../public/audio/audio.wav';
+import audio from '../public/audio/audio.mp3';
 import StartText from './components/StartText';
 import {colors} from './styles/colors';
 import MiddleText from './components/MiddleText';
