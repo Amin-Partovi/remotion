@@ -17,8 +17,8 @@ const MiddleText: React.FC = () => {
 	const {width} = useVideoConfig();
 
 	const middleText = config.text.middle_text[0].main;
-	const letterArray = middleText.split('');
-	const phraseWidth = (letterArray.length - 1) * 100;
+	const letterArray = middleText.split(''); // split the phrase by every character
+	const phraseWidth = (letterArray.length - 1) * 100; // the width of the phrase to position it in the middle of view width
 
 	return (
 		<>
@@ -27,10 +27,10 @@ const MiddleText: React.FC = () => {
 					frame - index * 5,
 					[0, gap, 2 * gap, 3 * gap],
 					[
-						-20,
-						(width + phraseWidth / 2 - index * letterWidth) / 2,
-						(width + phraseWidth / 2 - index * letterWidth) / 2,
-						width + 20,
+						-20, //first right position
+						(width + phraseWidth / 2 - index * letterWidth) / 2, //second right position
+						(width + phraseWidth / 2 - index * letterWidth) / 2, //wait at the second position
+						width + 20, // third position
 					]
 				);
 

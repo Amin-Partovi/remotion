@@ -51,23 +51,29 @@ const MyVideo: React.FC<Props> = () => {
 	return (
 		<AbsoluteFill style={{backgroundColor: colors.primaryColor1}}>
 			<Audio src={audio} />
+
 			<Sequence from={0}>
 				<Video src={video2} muted endAt={startTextDuration} />
 			</Sequence>
+
 			<Sequence from={startTextDuration - overLap}>
 				<Video src={video} muted />
 			</Sequence>
-			<Sequence from={600}>
+
+			<Sequence from={lastVideoStartFrame}>
 				<Video src={video3} style={{opacity: opacity}} muted />
 			</Sequence>
+
 			<AbsoluteFill style={{...textContaienrStyle}}>
 				<StartText getDuration={getStartTextDuration} />
 			</AbsoluteFill>
+
 			<Sequence from={startTextDuration + gap}>
 				<AbsoluteFill style={{...textContaienrStyle}}>
 					<MiddleText />
 				</AbsoluteFill>
 			</Sequence>
+
 			<Sequence from={lastVideoStartFrame + 2 * gap}>
 				<AbsoluteFill style={{...textContaienrStyle}}>
 					<EndText />

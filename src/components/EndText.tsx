@@ -17,6 +17,7 @@ const textStyle: React.CSSProperties = {
 	color: colors.primaryColor2,
 	position: 'absolute',
 	zIndex: '2',
+
 };
 
 const backgroundStyle: React.CSSProperties = {

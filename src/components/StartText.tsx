@@ -18,7 +18,7 @@ const backgroundStyle: React.CSSProperties = {
 	backgroundColor: colors.primaryColor1,
 };
 
-const gap = 45; // gap between each word
+const gap = 45; // time gap between each word
 
 interface Props {
 	getDuration: (duration: number) => void;
@@ -28,11 +28,12 @@ const StartText: React.FC<Props> = ({getDuration}) => {
 	const {fps} = useVideoConfig();
 	const frame = useCurrentFrame();
 	const startText = config.text.start_text[0];
-	const wordArray = startText.split(' ');
+	const wordArray = startText.split(' '); // break the phrase to words
 
 	const startTextDuration = wordArray.length * gap;
 
-	const opacity = frame > startTextDuration ? 0 : 1;
+	const opacity = frame > startTextDuration ? 0 : 1; // show the text after a specific moment
+
 	const backgroundScale =
 		frame < startTextDuration - 2 * gap
 			? 0
@@ -58,7 +59,7 @@ const StartText: React.FC<Props> = ({getDuration}) => {
 				}}
 			></div>
 			{wordArray.map((word: string, i: number) => {
-				const delay = i * gap;
+				const delay = i * gap; // delay between every word rendering
 
 				const scale = spring({
 					fps: fps,
