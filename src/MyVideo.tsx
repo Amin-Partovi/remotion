@@ -38,15 +38,15 @@ const MyVideo: React.FC<Props> = () => {
 
 	const [startTextDuration, setStartTextDuration] = useState<number>(1);
 
-	function getStartTextDuration(duration: number) {
-		setStartTextDuration(duration);
-	}
-
 	const opacity = interpolate(
 		frame,
 		[lastVideoStartFrame, lastVideoStartFrame + gap],
 		[0, 1]
 	);
+
+	function getStartTextDuration(duration: number) {
+		setStartTextDuration(duration);
+	}
 
 	return (
 		<AbsoluteFill style={{backgroundColor: colors.primaryColor1}}>

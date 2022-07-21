@@ -17,7 +17,6 @@ const textStyle: React.CSSProperties = {
 	color: colors.primaryColor2,
 	position: 'absolute',
 	zIndex: '2',
-
 };
 
 const backgroundStyle: React.CSSProperties = {
@@ -46,14 +45,16 @@ const EndText: React.FC = () => {
 		},
 	});
 
-	const translate = interpolate(TranslationProgress, [0, 1], [0, 300]);
+	const translate = interpolate(TranslationProgress, [0, 1], [0, 300]); // transform the text under the logo
 
 	return (
 		<>
 			<div style={{...backgroundStyle, opacity: backgroundOpacity}}></div>
+
 			<h1 style={{...textStyle, transform: `translateY(${translate}px)`}}>
 				{endText}
 			</h1>
+
 			<Img src={logo} style={{opacity: logoOpacity}} />
 		</>
 	);

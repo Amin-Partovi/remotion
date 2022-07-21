@@ -12,10 +12,12 @@ font
 	})
 	.catch((err) => console.log('Error loading font', err));
 
-export const RemotionVideo: React.FC = () => {
-	const videoDurartion = 30;
-	const fps = 30;
+const videoDurartion = 30;
+const fps = 30;
+const width = 1920;
+const height = 1080;
 
+export const RemotionVideo: React.FC = () => {
 	return (
 		<>
 			<Composition
@@ -23,8 +25,8 @@ export const RemotionVideo: React.FC = () => {
 				component={MyVideo}
 				durationInFrames={videoDurartion * fps}
 				fps={fps}
-				width={1920}
-				height={1080}
+				width={width}
+				height={height}
 			/>
 		</>
 	);
